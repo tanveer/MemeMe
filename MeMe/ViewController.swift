@@ -11,28 +11,35 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     //MARK:- outlets and vars
-    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var shareBUtton: UIBarButtonItem!
+    @IBOutlet weak var topNavBar: UINavigationBar!
+    @IBOutlet weak var bottomNavBar: UIToolbar!
+    @IBOutlet weak var infoLabel: UILabel!
     
     var memed:Meme!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         shareBUtton.enabled = false
-        topTextField.delegate = self
-        bottomTextField.delegate = self
         setupTextFields()
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        let intialMessageTemplate = [
+            "Welcome to MeMe","\n",
+            "To begin take a picture using camera","\n",
+            "or select one from photos","\n",
+            "Add your MeMe and share it with the world!"].joinWithSeparator("")
+        infoLabel.text = intialMessageTemplate
+    
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         //shift view when keyboard appears
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
         subscribToKeyboardNotification()
     }
     
@@ -65,7 +72,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //Image from Album
-    @IBAction func pickImageFromAlbum(sender: UIBarButtonItem) {
+    @IBAction func pickImageFromAlbum(sender:
+        UIBarButtonItem) {
+            infoLabel.hidden = true
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
@@ -80,21 +89,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             (activity, success, items, error) in
             if success {
                 self.saveMeme()
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.resetActions()
+                self.dismissViewControllerAnimated(true, completion:  nil)
+                self.infoLabel.hidden = false
             }
         }
     }
     
+    @IBAction func cancelMeme(sender: UIBarButtonItem) {
+        resetActions()
+    }
+    
     //MARK:- Helper methods
+    
+    func resetActions(){
+        imageView.image = nil
+        topTextField.hidden = true
+        bottomTextField.hidden = true
+        shareBUtton.enabled = false
+    }
     
     // hide keyboard when done editing
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
+        navBarHidden(false)
         return false
     }
     
     //MARK: - Set imageview
-    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
@@ -106,6 +128,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK:- Move current view up as keyboard appears
     func keyboardWillAppear(notification: NSNotification){
         if bottomTextField.isFirstResponder() {
+           navBarHidden(true)
             self.view.frame.origin.y -= getKeyBoardHeight(notification)
         }
     }
@@ -139,11 +162,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //generate meme image
     func generateMemedImage() -> UIImage{
+        //hide tool and navbar
+        navBarHidden(true)
+        
+        //capture meme
         navigationController?.hidesBarsWhenKeyboardAppears = true
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+        // unhide
+        navBarHidden(false)
         return memedImage
     }
     
@@ -159,6 +189,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //intial setup for textFields
     func setupTextFields(){
+        topTextField.delegate = self
+        bottomTextField.delegate = self
         topTextField.hidden = true
         bottomTextField.hidden = true
         let memeTextAtributes = [ NSStrokeColorAttributeName: UIColor.blackColor(), NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 35)!, NSStrokeWidthAttributeName: -3.0]
@@ -169,5 +201,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.defaultTextAttributes = memeTextAtributes
         bottomTextField.textAlignment = .Center
     }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        infoLabel.hidden = false
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func navBarHidden(state: Bool){
+        topNavBar.hidden = state
+        bottomNavBar.hidden = state
+    }
 }
+
 
