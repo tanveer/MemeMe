@@ -16,12 +16,12 @@
 
 /* Begin PBXFileReference section */
 		A1A58A6B1C08C21600111526 /* MeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1A58A6E1C08C21600111526 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A1A58A6E1C08C21600111526 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MeMe/AppDelegate.swift; sourceTree = "<group>"; };
 		A1A58A701C08C21600111526 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A1A58A731C08C21600111526 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A1A58A751C08C21600111526 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1A58A751C08C21600111526 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = MeMe/Assets.xcassets; sourceTree = "<group>"; };
 		A1A58A781C08C21600111526 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A1A58A7A1C08C21600111526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1A58A7A1C08C21600111526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = MeMe/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +38,7 @@
 		A1A58A621C08C21600111526 = {
 			isa = PBXGroup;
 			children = (
+				A1A58A801C08C2A200111526 /* SupportingFiles */,
 				A1A58A6D1C08C21600111526 /* MeMe */,
 				A1A58A6C1C08C21600111526 /* Products */,
 			);
@@ -54,14 +55,21 @@
 		A1A58A6D1C08C21600111526 /* MeMe */ = {
 			isa = PBXGroup;
 			children = (
-				A1A58A6E1C08C21600111526 /* AppDelegate.swift */,
 				A1A58A701C08C21600111526 /* ViewController.swift */,
 				A1A58A721C08C21600111526 /* Main.storyboard */,
+			);
+			path = MeMe;
+			sourceTree = "<group>";
+		};
+		A1A58A801C08C2A200111526 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
 				A1A58A751C08C21600111526 /* Assets.xcassets */,
+				A1A58A6E1C08C21600111526 /* AppDelegate.swift */,
 				A1A58A771C08C21600111526 /* LaunchScreen.storyboard */,
 				A1A58A7A1C08C21600111526 /* Info.plist */,
 			);
-			path = MeMe;
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +165,7 @@
 				A1A58A781C08C21600111526 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = MeMe;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
