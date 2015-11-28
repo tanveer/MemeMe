@@ -293,6 +293,7 @@
 				A1A58A7F1C08C21600111526 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

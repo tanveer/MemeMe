@@ -93,6 +93,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func keyboardWillAppear(notification: NSNotification){
         if bottomTextField.isFirstResponder() {
             self.view.frame.origin.y -= getKeyBoardHeight(notification)
+        } else if topTextField.isFirstResponder() {
+            self.view.frame.origin.y = 0
         }
     }
     
