@@ -52,7 +52,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-7w-m1E">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-7w-m1E">
                                 <rect key="frame" x="168" y="169" width="264" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -63,10 +63,9 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
                                 <connections>
                                     <action selector="textFieldBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="B41-xJ-Rde"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="LfC-Dj-EO4"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y4l-Ub-uaY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="y4l-Ub-uaY">
                                 <rect key="frame" x="168" y="400" width="264" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -76,7 +75,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
                                 <connections>
-                                    <action selector="bottomTextFieldBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="zFP-9i-XJH"/>
+                                    <action selector="bottomTextFieldBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="mSR-Kj-VdG"/>
                                 </connections>
                             </textField>
                         </subviews>
