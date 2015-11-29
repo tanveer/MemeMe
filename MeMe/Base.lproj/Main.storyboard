@@ -17,10 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="O3e-52-E3g">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="O3e-52-E3g">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                             </imageView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-Go-ZcL">
+                                <rect key="frame" x="140" y="192" width="320" height="216"/>
+                                <animations/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="NeU-fJ-9Pz">
+                                <rect key="frame" x="150" y="154" width="300" height="293"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="293" id="2qh-8r-R0w"/>
+                                    <constraint firstAttribute="width" constant="300" id="DKI-Wq-1Pr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fM9-ag-mly">
                                 <rect key="frame" x="150" y="150" width="300" height="300"/>
                                 <animations/>
@@ -56,30 +71,6 @@
                                 </items>
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWg-YW-KB8">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <animations/>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="0.18823529411764706" green="0.4392156862745098" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="MeMe" id="68m-mA-bir">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="p6p-sA-cM7">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="OWu-jN-zPR"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="1b7-2O-Ckq">
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="cancelMeme:" destination="BYZ-38-t0r" id="mv9-Om-GsA"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-7w-m1E">
                                 <rect key="frame" x="168" y="169" width="264" height="30"/>
                                 <animations/>
@@ -106,21 +97,33 @@
                                     <action selector="bottomTextFieldBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="mSR-Kj-VdG"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="NeU-fJ-9Pz">
-                                <rect key="frame" x="150" y="154" width="300" height="293"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWg-YW-KB8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="293" id="2qh-8r-R0w"/>
-                                    <constraint firstAttribute="width" constant="300" id="DKI-Wq-1Pr"/>
+                                    <constraint firstAttribute="height" constant="44" id="AnT-fb-5ED"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="18"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-Go-ZcL">
-                                <rect key="frame" x="140" y="191.5" width="320" height="216"/>
-                                <animations/>
-                            </pickerView>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="0.18823529411764706" green="0.4392156862745098" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="MeMe" id="68m-mA-bir">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="p6p-sA-cM7">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="OWu-jN-zPR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="1b7-2O-Ckq">
+                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="cancelMeme:" destination="BYZ-38-t0r" id="mv9-Om-GsA"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <animations/>
                         <constraints>
@@ -128,20 +131,17 @@
                             <constraint firstItem="fM9-ag-mly" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1Rg-mo-4G1"/>
                             <constraint firstItem="O3e-52-E3g" firstAttribute="centerY" secondItem="NeU-fJ-9Pz" secondAttribute="centerY" id="2BZ-Kd-Igq"/>
                             <constraint firstItem="fM9-ag-mly" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="49P-Lb-wZj"/>
-                            <constraint firstItem="SWg-YW-KB8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6ff-rE-XIj"/>
                             <constraint firstAttribute="trailing" secondItem="PUr-fD-CBK" secondAttribute="trailing" id="8GL-GB-Axb"/>
-                            <constraint firstAttribute="trailing" secondItem="SWg-YW-KB8" secondAttribute="trailing" id="Deo-ox-fTi"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PUr-fD-CBK" secondAttribute="bottom" id="EMA-Ri-qnl"/>
-                            <constraint firstItem="SWg-YW-KB8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TW4-Gr-5ji"/>
+                            <constraint firstItem="SWg-YW-KB8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="KTE-t9-jvz"/>
                             <constraint firstItem="y4l-Ub-uaY" firstAttribute="top" secondItem="fM9-ag-mly" secondAttribute="bottom" constant="-50" id="WCi-wY-Xk8"/>
                             <constraint firstItem="jh4-Go-ZcL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="b3w-VQ-a6d"/>
                             <constraint firstItem="fM9-ag-mly" firstAttribute="top" secondItem="ueR-7w-m1E" secondAttribute="bottom" constant="-49" id="ctK-pe-O5u"/>
                             <constraint firstItem="PUr-fD-CBK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ddE-Ml-RxY"/>
-                            <constraint firstItem="O3e-52-E3g" firstAttribute="leading" secondItem="SWg-YW-KB8" secondAttribute="leading" id="evl-Nh-s5B"/>
+                            <constraint firstAttribute="trailing" secondItem="SWg-YW-KB8" secondAttribute="trailing" id="doS-gY-mvU"/>
                             <constraint firstItem="O3e-52-E3g" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="jXV-1g-SM8"/>
-                            <constraint firstItem="SWg-YW-KB8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="m11-6W-zrm"/>
+                            <constraint firstItem="SWg-YW-KB8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kz9-hF-fpb"/>
                             <constraint firstItem="jh4-Go-ZcL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o6b-kZ-Glp"/>
-                            <constraint firstItem="O3e-52-E3g" firstAttribute="trailing" secondItem="SWg-YW-KB8" secondAttribute="trailing" id="sxb-Wu-FjB"/>
                             <constraint firstItem="NeU-fJ-9Pz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tGe-DN-HJW"/>
                             <constraint firstItem="ueR-7w-m1E" firstAttribute="leading" secondItem="fM9-ag-mly" secondAttribute="trailing" constant="-282" id="up6-8B-G3m"/>
                             <constraint firstItem="NeU-fJ-9Pz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yyS-r9-iTP"/>
