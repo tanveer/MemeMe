@@ -21,7 +21,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var fontPicker: UIPickerView!
     @IBOutlet weak var fontButton: UIBarButtonItem!
-    var memed:Meme!
+    
     var fontName:[String] = []
     var userSelectedFont:String = ""
     
@@ -89,6 +89,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //Image from Album
     @IBAction func pickImageFromAlbum(sender:
         UIBarButtonItem) {
+            fontButton.enabled = false
             infoLabelState(true)
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -101,6 +102,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let activityItem = generateMemedImage()
         let activityController = UIActivityViewController(activityItems: [activityItem], applicationActivities:nil)
         presentViewController(activityController, animated: true, completion: nil)
+        
         activityController.completionWithItemsHandler = {
             (activity, success, items, error) in
             if success {
@@ -110,6 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.infoLabelState(false)
                 self.fontPickerState(true)
                 self.fontButton.enabled = true
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }
@@ -118,6 +121,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         fontPickerState(true)
         infoLabelState(false)
         resetActions()
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     @IBAction func selectFont(sender: UIBarButtonItem) {
@@ -137,7 +142,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // hide keyboard when done editing
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
-        navBarHidden(false)
         return false
     }
     
@@ -153,7 +157,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //Move current view up as keyboard appears
     func keyboardWillAppear(notification: NSNotification){
         if bottomTextField.isFirstResponder() {
-           navBarHidden(true)
             self.view.frame.origin.y -= getKeyBoardHeight(notification)
         } else if topTextField.isFirstResponder() {
             self.view.frame.origin.y = 0
@@ -198,14 +201,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         // unhide
         navBarHidden(false)
+        
         return memedImage
     }
     
     func saveMeme(){
-        memed = Meme(tText: topTextField.text!, bText: bottomTextField.text!, oImage: imageView.image!, meme: generateMemedImage())
+        let meme = Meme(tText: topTextField.text!, bText: bottomTextField.text!, oImage: imageView.image!, meme: generateMemedImage())
+        
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func enableDisableOutlets(){
