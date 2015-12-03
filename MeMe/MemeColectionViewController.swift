@@ -9,7 +9,7 @@
 import UIKit
 private let cellIdentifier = "CollectionViewCell"
 
-class MemeColectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MemeColectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
     var meme: [Meme]! {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
@@ -25,14 +25,12 @@ class MemeColectionViewController: UIViewController, UICollectionViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let space: CGFloat = 3.0
-        let dimension = ( self.view.frame.size.width - (4 *
-            space) ) / 2.0
-        let height = (self.view.frame.size.height - (3
-        * space)) / 4.0
-        //flowLayout.minimumInteritemSpacing = 0
-        flowLayout.minimumLineSpacing = 4
-        flowLayout.itemSize = CGSizeMake(dimension, height)
+//        let space: CGFloat = 3.0
+//        let dimension = ( self.view.frame.size.width - (3 * space) ) / 2.0
+//        //flowLayout.estimatedItemSize = CGSize(width: 0 , height: 0)
+//        flowLayout.minimumInteritemSpacing = space
+//        flowLayout.minimumLineSpacing = 2
+//        flowLayout.itemSize = CGSizeMake(dimension, dimension)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -44,14 +42,19 @@ class MemeColectionViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return meme.count
+        //delete it from final version
+        return images.count
+        //return meme.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! CollectionViewCell
         
-        cell.memeImage.image = meme[indexPath.row].memeImage!
-       // cell.infoLabel.text = meme[indexPath.row].topText!
+          //cell.memeImage.image = meme[indexPath.row].memeImage!
+         //cell.infoLabel.text = meme[indexPath.row].topText!
+        
+        //delete it from final version
+        cell.memeImage.image = UIImage(named: "\(images[indexPath.row])")
         return cell
     }
     
