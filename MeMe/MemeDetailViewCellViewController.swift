@@ -25,7 +25,6 @@ class MemeDetailViewCellViewController: UIViewController {
             let memeData = meme[index]
             memeImageView.image = memeData.memeImage
         }
-        
     }
     
     @IBAction func dismissPresentingViewController(sender: UIBarButtonItem){

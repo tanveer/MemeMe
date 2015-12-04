@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //MARK:- outlets and vars
     @IBOutlet weak var imageView: UIImageView!
@@ -31,10 +31,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         fontPicker.dataSource = self
         fontPickerState(true)
         shareBUtton.enabled = false
-        
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
+    
         //message template
         let intialMessageTemplate = [
             "Welcome to MeMe","\n",
@@ -43,24 +42,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             "select desired font","\n",
             "Add your MeMe and share it with the world!"].joinWithSeparator("")
        infoLabel.text = intialMessageTemplate
+        
         //create system font list and populate pickerView
         fontFinder()
         
         //set default font to HelveticaNeue-CondensedBlack
         userSelectedFont = fontName[53]
-        
-        //deafult textField setup
-        setupTextFields()
+        setupTextFields(topTextField, placeholder: "Top", hidden: true)
+        setupTextFields(bottomTextField, placeholder: "BOTTOM", hidden: true)
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
         //shift view when keyboard appears
+        navigationController?.setToolbarHidden(true, animated: animated)
         subscribeToKeyboardNotification()
     }
     
     override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
         //cancel subscription from NSNotificaiton
         unsubscribeFromKeyboardNotifications()
     }
@@ -80,10 +80,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func takeImageFromCamera(sender: UIBarButtonItem) {
         fontPickerState(true)
         fontButton.enabled = false
+        infoLabel.hidden = true
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     //Image from Album
@@ -94,7 +95,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        presentViewController(imagePicker, animated: true, completion: nil)
             fontPickerState(true)
     }
     
@@ -102,7 +103,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let activityItem = generateMemedImage()
         let activityController = UIActivityViewController(activityItems: [activityItem], applicationActivities:nil)
         presentViewController(activityController, animated: true, completion: nil)
-        
         activityController.completionWithItemsHandler = {
             (activity, success, items, error) in
             if success {
@@ -122,7 +122,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         infoLabelState(false)
         resetActions()
         dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     @IBAction func selectFont(sender: UIBarButtonItem) {
@@ -142,7 +141,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // hide keyboard when done editing
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.endEditing(true)
-        return false
+        return true
     }
     
     //Set imageview
@@ -151,23 +150,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imageView.image = image
         }
         enableDisableOutlets()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     //Move current view up as keyboard appears
     func keyboardWillAppear(notification: NSNotification){
+        navBarHidden(true)
         if bottomTextField.isFirstResponder() {
             self.view.frame.origin.y -= getKeyBoardHeight(notification)
-        } else if topTextField.isFirstResponder() {
-            self.view.frame.origin.y = 0
         }
     }
     
     //Shift view down when keyboard is dismissed
-    func keyboardWillHideNotification(){
-        if bottomTextField.isFirstResponder() {
-            self.view.frame.origin.y = 0
-        }
+    func keyboardWillHideNotification(notification: NSNotification){
+        navBarHidden(false)
+        self.view.frame.origin.y = 0
     }
     
     //get keyboard height
@@ -180,7 +177,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //subscribe to notification when keyboard appears
     func subscribeToKeyboardNotification(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillAppear:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHideNotification", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
     //unsbscribe to notification
@@ -194,16 +191,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage{
         //hide tool and navbar
         navBarHidden(true)
-        
         //capture meme
         navigationController?.hidesBarsWhenKeyboardAppears = true
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         // unhide
         navBarHidden(false)
-        
         return memedImage
     }
     
@@ -222,18 +217,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //intial setup for textField
-    func setupTextFields(){
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        topTextField.hidden = true
-        bottomTextField.hidden = true
+    func setupTextFields(textField:UITextField, placeholder:String, hidden:Bool){
         let memeTextAtributes = [ NSStrokeColorAttributeName: UIColor.blackColor(), NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name:userSelectedFont, size: 30)!, NSStrokeWidthAttributeName: -3.0]
-        bottomTextField.defaultTextAttributes = memeTextAtributes
-        topTextField.defaultTextAttributes = memeTextAtributes
-        topTextField.text = "TOP"
-        topTextField.textAlignment = .Center
-        bottomTextField.text = "BOTTOM"
-        bottomTextField.textAlignment = .Center
+        textField.delegate = self
+        textField.hidden = hidden
+        textField.defaultTextAttributes = memeTextAtributes
+        textField.text = placeholder
+        textField.textAlignment = .Center
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -269,13 +259,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userSelectedFont = fontName[row]
-        let memeTextAtributes = [ NSStrokeColorAttributeName: UIColor.blackColor(), NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name:userSelectedFont, size: 35)!, NSStrokeWidthAttributeName: -3.0]
-        bottomTextField.defaultTextAttributes = memeTextAtributes
-        topTextField.defaultTextAttributes = memeTextAtributes
-        topTextField.text = "TOP"
-        topTextField.textAlignment = .Center
-        bottomTextField.text = "BOTTOM"
-        bottomTextField.textAlignment = .Center
+        setupTextFields(topTextField, placeholder: "Top", hidden: false)
+        setupTextFields(bottomTextField, placeholder: "BOTTOM", hidden:false)
     }
     
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
@@ -284,6 +269,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             label = UILabel()
             label.backgroundColor = UIColor(red: 91/255, green: 202/255, blue: 255/255, alpha: 1)
         }
+        
         let font = fontName[row]
         let attFont = NSAttributedString(string: font, attributes: [NSFontAttributeName:UIFont(name: fontName[row], size: 22.0)!, NSForegroundColorAttributeName: UIColor.whiteColor()])
         label.attributedText = attFont

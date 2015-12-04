@@ -9,10 +9,5 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-    
-    
-    @IBOutlet weak var memeImage: UIImageView!
-    
-    @IBOutlet weak var infoLabel: UILabel!
-    
+    @IBOutlet weak var memeImage: UIImageView!    
 }

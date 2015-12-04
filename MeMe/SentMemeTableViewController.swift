@@ -9,10 +9,9 @@
 import UIKit
 private let cellIdentifier = "MemeTableViewCell"
 
-class MemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SentMemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
     var meme:[Meme]! {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     }
@@ -33,14 +32,7 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
-    
-    
-    //MARK:- Pop viewController
-    @IBAction func unwindToTableView(segue: UIStoryboardSegue){        
-    }
-    
-    
+
     //MARK:- Table view
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meme.count
@@ -49,10 +41,15 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCellTableViewCell
         let memes = meme[indexPath.row]
-        //cell.memeTextLalbel.text  = memes.topText!
+        
+        
+        cell.memeTextLalbel.text = "\(memes.topText!) \(memes.bottomText!)"
+
+        
         if let image = memes.memeImage {
             cell.memeImage.image = image
         }
+        
         return cell
     }
     
@@ -63,18 +60,26 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         let detailVC = object.instantiateViewControllerWithIdentifier("detailViewController") as! MemeDetailViewCellViewController
         detailVC.index = index
 
-        navigationController?.presentViewController(detailVC, animated: true, completion: nil)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //Delete item from tableView
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
-    */
-
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let object = UIApplication.sharedApplication().delegate
+            let appDelegate = object as! AppDelegate
+            appDelegate.memes.removeAtIndex(indexPath.row)
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func showMemeEditor(sender: UIBarButtonItem) {
+        let object = UIStoryboard(name: "Main", bundle: nil)
+        let memeEditor = object.instantiateViewControllerWithIdentifier("MeMeEditor")
+        navigationController?.presentViewController(memeEditor, animated: true, completion: nil)
+    }
 }

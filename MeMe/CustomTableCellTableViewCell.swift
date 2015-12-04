@@ -14,15 +14,12 @@ class CustomTableCellTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    @IBOutlet weak var detailButton: UIButton!
+    
     @IBOutlet weak var memeTextLalbel: UILabel!
     @IBOutlet weak var memeImage: UIImageView!
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
