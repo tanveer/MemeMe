@@ -20,12 +20,10 @@ class SentMemeTableViewController: UIViewController, UITableViewDataSource, UITa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,25 +39,18 @@ class SentMemeTableViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCellTableViewCell
         let memes = meme[indexPath.row]
-        
-        
         cell.memeTextLalbel.text = "\(memes.topText!) \(memes.bottomText!)"
-
-        
         if let image = memes.memeImage {
             cell.memeImage.image = image
         }
-        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let index = indexPath.row
-        
         let object = UIStoryboard(name: "Main", bundle: nil)
         let detailVC = object.instantiateViewControllerWithIdentifier("detailViewController") as! MemeDetailViewCellViewController
         detailVC.index = index
-
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

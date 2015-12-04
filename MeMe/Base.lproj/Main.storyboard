@@ -139,6 +139,30 @@
                                     <constraint firstAttribute="height" constant="250" id="Gig-UI-3M8"/>
                                 </constraints>
                             </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-rz-RJk">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="b3r-ld-0Gc"/>
+                                    <constraint firstAttribute="height" constant="44" id="rON-pP-rI2"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="edit" id="xLG-BH-Zdv">
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="editMeme" destination="hBd-tW-Mip" id="xuJ-4O-7Nk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cRv-eW-8iX"/>
+                                    <barButtonItem title="Delete" id="2xk-iI-YRq">
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="deleteMeme:" destination="hBd-tW-Mip" id="MAk-Fq-OJ7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" red="0.035294117649999998" green="0.27450980390000002" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.021848680487073929" green="0.37196144659874592" blue="0.5205693816282051" alpha="1" colorSpace="calibratedRGB"/>
@@ -147,8 +171,11 @@
                             <constraint firstAttribute="trailing" secondItem="vlc-EF-2Bu" secondAttribute="trailing" id="Cyd-EZ-ejD"/>
                             <constraint firstItem="rzI-8k-cNz" firstAttribute="top" secondItem="vlc-EF-2Bu" secondAttribute="bottom" id="I84-86-eaD"/>
                             <constraint firstItem="dsc-eR-412" firstAttribute="centerY" secondItem="Ju5-im-cIQ" secondAttribute="centerY" id="L8O-gw-GSi"/>
+                            <constraint firstItem="N5x-rz-RJk" firstAttribute="leading" secondItem="Ju5-im-cIQ" secondAttribute="leading" id="TWk-T5-kxg"/>
                             <constraint firstItem="dsc-eR-412" firstAttribute="centerX" secondItem="Ju5-im-cIQ" secondAttribute="centerX" id="gyW-bE-BgO"/>
                             <constraint firstItem="vlc-EF-2Bu" firstAttribute="top" secondItem="Ju5-im-cIQ" secondAttribute="top" id="pWs-pe-gHI"/>
+                            <constraint firstItem="rzI-8k-cNz" firstAttribute="top" secondItem="N5x-rz-RJk" secondAttribute="bottom" id="sdk-fE-haJ"/>
+                            <constraint firstAttribute="trailing" secondItem="N5x-rz-RJk" secondAttribute="trailing" id="wSd-nv-QuY"/>
                         </constraints>
                     </view>
                     <connections>
@@ -157,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdS-xP-4TS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1393" y="-235"/>
+            <point key="canvasLocation" x="-231" y="-237"/>
         </scene>
         <!--MeMe Editor-->
         <scene sceneID="tne-QT-ifu">

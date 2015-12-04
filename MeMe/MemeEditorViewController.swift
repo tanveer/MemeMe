@@ -57,12 +57,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         //shift view when keyboard appears
         navigationController?.setToolbarHidden(true, animated: animated)
         subscribeToKeyboardNotification()
+        
+        
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         //cancel subscription from NSNotificaiton
         unsubscribeFromKeyboardNotifications()
+
     }
     
     //MARK:- Action methods
@@ -132,7 +138,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     //MARK:- Helper methods
     
     func resetActions(){
-        imageView.image = nil
+        //imageView.image = nil
         topTextField.hidden = true
         bottomTextField.hidden = true
         shareBUtton.enabled = false
@@ -286,6 +292,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func infoLabelState(state:Bool){
         infoLabel.hidden = state
+    }
+    
+    func editMeme(meme:Meme){
+        infoLabel.hidden = true
+        topTextField.hidden = false
+        bottomTextField.hidden = false
+        if let image = meme.memeImage {
+            if image == generateMemedImage(){
+                topTextField.text = meme.topText
+                bottomTextField.text = meme.bottomText
+                imageView.image = meme.originlImage
+            }
+        }
     }
 }
 
